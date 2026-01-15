@@ -39,11 +39,11 @@
 服务端提供以下核心 API (建议采用 POST 方法):
 
 -   **语义分类:** `/api/clip`
-    -   *Input:* 具体参考 [API.md](API.md) 语义分类API
+    -   *Input:* 具体参考 [./docs/API.md](API.md) 语义分类API
 -   **智能修补:** `/api/magic`
-    -   *Input:* 具体参考 [API.md](API.md) 智能修补API
+    -   *Input:* 具体参考 [./docs/API.md](API.md) 智能修补API
 -   **高精抠图:** `/api/removebg`
-    -   *Input:* 具体参考 [API.md](API.md) 高精抠图API
+    -   *Input:* 具体参考 [./docs/API.md](API.md) 高精抠图API
 
 ## 🚀 项目结构建议
 
