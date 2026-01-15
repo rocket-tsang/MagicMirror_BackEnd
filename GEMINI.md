@@ -5,7 +5,7 @@
 ## ✨ 服务端核心功能
 
 1.  **智能分类 (CLIP)[https://github.com/OFA-Sys/Chinese-CLIP]:** 基于语义理解自动对图片进行分类。只需提供图片和标签（如：主图、细节图、模特图），系统即可识别图片内容并将其归档至对应的文件夹中。
-2.  **智能修补 (LaMa)[https://huggingface.co/briaai/RMBG-1.4]:** 强大的文字擦除与图像修复功能。可自动识别并擦除图片中的水印、中文文案或杂物，并智能补全背景内容。支持模型切换与参数配置。
+2.  **智能修补 (LaMa)[https://github.com/advimman/lama]:** 强大的文字擦除与图像修复功能。可自动识别并擦除图片中的水印、中文文案或杂物，并智能补全背景内容。支持模型切换与参数配置。
 3.  **高精度抠图 (RMBG-1.4)[https://huggingface.co/briaai/RMBG-1.4]:** 发丝级精度的背景移除功能。能够将商品主体完美从背景中分离，支持生成透明背景或纯白背景图片。
 
 ## 📖 项目简介
@@ -39,17 +39,21 @@
 服务端提供以下核心 API (建议采用 POST 方法):
 
 -   **语义分类:** `/api/clip`
-    -   *Input:* 图片数据，分类数组 (JSON) + 模型参数
+    -   *Input:* 具体参考 [API.md](API.md) 语义分类API
 -   **智能修补:** `/api/magic`
-    -   *Input:* 图片数据 (Base64) + 模型参数
+    -   *Input:* 具体参考 [API.md](API.md) 智能修补API
 -   **高精抠图:** `/api/removebg`
-    -   *Input:* 图片数据 (Base64) + 模型参数
+    -   *Input:* 具体参考 [API.md](API.md) 高精抠图API
 
 ## 🚀 项目结构建议
 
 ```text
 imagehelper-backend/
 ├── main.py               # FastAPI 应用入口
+├── api/                  # api目录
+│   ├── index.py          # 提供接口，包括（'/api/clip','/api/magic','/api/removebg'）
+│   ├── clip_processor.py     # 语义分类 (CLIP)
+│   └── removebg_processor.py # 高精抠图 (RMBG)
 ├── models_manager.py     # AI 模型加载、管理与推理封装
 ├── processor/            # 业务逻辑处理模块
 │   ├── magic_processor.py    # 智能修补 (LaMa)
@@ -68,10 +72,12 @@ imagehelper-backend/
 
 *   **编程语言:** Python 3.10.5
 *   **Web 框架:** FastAPI
-*   **Python核心框架:** onnxruntime pillow numpy 等
+*   **Python核心框架:**onnxruntime-gpu pillow numpy uvicorn cn-clip等
 *   **核心模型:**
     *   CLIP_Chinese (语义理解)
     *   LaMa (图像修补)
     *   RMBG-1.4 (背景移除)
 *   **数据库:** SQLite
 *   **打包工具:** PyInstaller (用于生成可执行文件/服务)
+*   **配置框架:** python-dotenv
+*   **数据库框架** SQLAlchemy Core
